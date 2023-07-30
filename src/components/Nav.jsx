@@ -23,7 +23,9 @@ export default function Nav() {
         </ul>
       </div>
       {/* <a className="btn btn-ghost normal-case text-xl">daisyUI</a> */}
-      <img src="https://cdn.cobone.com/images/cobone-v2-en.svg" className='h-8' alt="" />
+      <Link href="/">
+        <img src="https://cdn.cobone.com/images/cobone-v2-en.svg" className='h-8' alt="" />
+      </Link>
     </div>
     <div className="navbar-center hidden lg:flex">
       <ul className="menu menu-horizontal px-1">

@@ -1,20 +1,53 @@
 import React from 'react'
 import Layout from '@/components/Layout'
+import Image from 'next/image'
 
 export default async function Deal({params}) {
   const deal = await getDeal(params.slug)
-  console.log(deal)
+  console.log('Deal', deal)
   return (
     <Layout className=''>
-      <div className="flex flex-wrap -mx-1 lg:-mx-4 justify-center">
-        <h2>{params.slug}</h2>
+      <div className="flex flex-col w-3/4 justify-center">
+        <h2>{deal.data.attributes.title}</h2>
+        <p className='text-sm mt-4'>{deal.data.attributes.shortdesc}</p>
+        <div class="carousel w-full mt-4">
+          <div id="slide1" class="carousel-item relative w-full">
+            <img src="https://daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.jpg" class="w-full" />
+            <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+              <a href="#slide4" class="btn btn-circle">❮</a> 
+              <a href="#slide2" class="btn btn-circle">❯</a>
+            </div>
+          </div> 
+          <div id="slide2" class="carousel-item relative w-full">
+            <img src="https://daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.jpg" class="w-full" />
+            <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+              <a href="#slide1" class="btn btn-circle">❮</a> 
+              <a href="#slide3" class="btn btn-circle">❯</a>
+            </div>
+          </div> 
+          <div id="slide3" class="carousel-item relative w-full">
+            <img src="https://daisyui.com/images/stock/photo-1414694762283-acccc27bca85.jpg" class="w-full" />
+            <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+              <a href="#slide2" class="btn btn-circle">❮</a> 
+              <a href="#slide4" class="btn btn-circle">❯</a>
+            </div>
+          </div> 
+          <div id="slide4" class="carousel-item relative w-full">
+            <img src="https://daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.jpg" class="w-full" />
+            <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+              <a href="#slide3" class="btn btn-circle">❮</a> 
+              <a href="#slide1" class="btn btn-circle">❯</a>
+            </div>
+          </div>
+        </div>
+        <p className='text-sm mt-4'>{deal.data.attributes.description}</p>
       </div>
     </Layout>
   )
 }
 
 async function getDeal(slug) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/slugify/slugs/deals/${slug}`, { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/slugify/slugs/deal/${slug}?populate=*`, { cache: 'no-store' })
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')
